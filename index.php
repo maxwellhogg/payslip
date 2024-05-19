@@ -69,40 +69,40 @@ class Pay
         $this->student_loan     =   $student_loan;
     }
 
-    public function setStartingWage(): float
+    public function setStartingWage()
     {
         $this->starting_wage *= $this->hours;
-        return $this->starting_wage;
+        return number_format($this->starting_wage, 2, '.', '');
     }
 
-    public function setOvertime(): float
+    public function setOvertime()
     {
         $this->overtime *= $this->ot_hours;
-        return $this->overtime;
+        return number_format($this->overtime, 2, '.', '');
     }
 
-    public function setBonus(): float
+    public function setBonus()
     {
         $this->bonus *= $this->bonus_wks;
-        return $this->bonus;
+        return number_format($this->bonus, 2, '.', '');
     }
 
     public function setTax()
     {
         $top_line = $this->starting_wage + $this->overtime + $this->bonus;
-        return $top_line * $this->tax;
+        return number_format($top_line * $this->tax, 2, '.', '');
     }
 
     public function setNatIns()
     {
         $top_line = $this->starting_wage + $this->overtime + $this->bonus;
-        return $top_line * $this->nic;
+        return number_format($top_line * $this->nic, 2, '.', '');
     }
 
     public function setStudentLoan()
     {
         $top_line = $this->starting_wage + $this->overtime + $this->bonus;
-        return $top_line * $this->student_loan;
+        return number_format($top_line * $this->student_loan, 2, '.', '');
     }
 
     public function setTotalWage()
@@ -111,7 +111,7 @@ class Pay
         $deduct_tax = $top_line * $this->tax;
         $deduct_nic = $top_line * $this->nic;
         $deduct_sl = $top_line * $this->student_loan;
-        return $top_line - $deduct_tax - $deduct_nic - $deduct_sl;
+        return number_format($top_line - $deduct_tax - $deduct_nic - $deduct_sl, 2, '.', '');
     }
 }
 
