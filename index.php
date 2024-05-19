@@ -87,9 +87,11 @@ class Pay
         return $this->bonus;
     }
 
-    public function setTax($personalAllowance)
+    public function setTax()
     {
-        $
+        $top_line = $this->starting_wage + $this->overtime + $this->bonus;
+        $this->tax += $top_line;
+        return $this->tax;
     }
 }
 
@@ -130,12 +132,12 @@ $pay = new Pay
     <title>Company Payslip</title>
 </head>
 <body>
-    <p>Starting Wage: £<?= $pay->setStartingWage() ?></p>
-    <p>Overtime: £<?= $pay->setOvertime() ?></p>
-    <p>Bonus: £<?= $pay->setBonus() ?></p>
-    <p>Tax: £</p>
-    <p>National Insurance: £</p>
-    <p>Student Loan: £</p>
-    <p>Total Pay: £</p>
+    <p>Starting Wage:       £<?= $pay->setStartingWage() ?></p>
+    <p>Overtime:            £<?= $pay->setOvertime() ?></p>
+    <p>Bonus:               £<?= $pay->setBonus() ?></p>
+    <p>Tax:                 £<?= $pay->setTax() ?></p>
+    <p>National Insurance:  £</p>
+    <p>Student Loan:        £</p>
+    <p>Total Pay:           £</p>
 </body>
 </html>
