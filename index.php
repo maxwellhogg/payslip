@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 class Employee
 {
     public  string  $forename;
@@ -33,7 +33,6 @@ class Employee
     }
 }
 
-declare(strict_types = 1);
 class Pay
 {
     public  float   $starting_wage;
@@ -59,9 +58,65 @@ class Pay
         float   $student_loan,
     )
     {
-        
+        $this->starting_wage    =   $starting_wage;
+        $this->hours            =   $hours;
+        $this->overtime         =   $overtime;
+        $this->ot_hours         =   $ot_hours;
+        $this->bonus            =   $bonus;
+        $this->bonus_wks        =   $bonus_wks;
+        $this->tax              =   $tax;
+        $this->nic              =   $nic;
+        $this->student_loan     =   $student_loan;
+    }
+
+    public function setStartingWage(): float
+    {
+        $this->starting_wage *= $this->hours;
+        return $this->starting_wage;
+    }
+
+    public function setOvertime(): float
+    {
+        $this->overtime *= $this->ot_hours;
+        return $this->overtime;
+    }
+
+    public function setBonus(): float
+    {
+        $this->bonus *= $this->bonus_wks;
+        return $this->bonus;
+    }
+
+    public function setTax($personalAllowance)
+    {
+        $
     }
 }
+
+$employee = new Employee
+(
+    'Maxwell',               // $forename
+    'Hogg',                  // $surname
+    'Warehouse',             // $department
+    '230978',                // $employee_num
+    'maxy.hogg@email.com',   // $email
+    '07656454443',           // $contact_num
+);
+
+$pay = new Pay
+(
+    14.84,                   // $starting_wage;
+    40,                      // $hours;
+    22.47,                   // $overtime;
+    5,                       // $ot_hours;
+    20,                      // $bonus;
+    51,                      // $bonus_wks;
+    100 / 20,                // $tax;
+    100 / 5,                 // $nic;
+    100 / 2,                 // $student_loan;
+);
+
+
 
 ?>
 
@@ -75,6 +130,12 @@ class Pay
     <title>Company Payslip</title>
 </head>
 <body>
-    
+    <p>Starting Wage: £<?= $pay->setStartingWage() ?></p>
+    <p>Overtime: £<?= $pay->setOvertime() ?></p>
+    <p>Bonus: £<?= $pay->setBonus() ?></p>
+    <p>Tax: £</p>
+    <p>National Insurance: £</p>
+    <p>Student Loan: £</p>
+    <p>Total Pay: £</p>
 </body>
 </html>
