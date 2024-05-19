@@ -90,8 +90,28 @@ class Pay
     public function setTax()
     {
         $top_line = $this->starting_wage + $this->overtime + $this->bonus;
-        $this->tax += $top_line;
-        return $this->tax;
+        return $top_line * $this->tax;
+    }
+
+    public function setNatIns()
+    {
+        $top_line = $this->starting_wage + $this->overtime + $this->bonus;
+        return $top_line * $this->nic;
+    }
+
+    public function setStudentLoan()
+    {
+        $top_line = $this->starting_wage + $this->overtime + $this->bonus;
+        return $top_line * $this->student_loan;
+    }
+
+    public function setTotalWage()
+    {
+        $top_line = $this->starting_wage + $this->overtime + $this->bonus;
+        $deduct_tax = $top_line * $this->tax;
+        $deduct_nic = $top_line * $this->nic;
+        $deduct_sl = $top_line * $this->student_loan;
+        return $top_line - $deduct_tax - $deduct_nic - $deduct_sl;
     }
 }
 
@@ -107,15 +127,15 @@ $employee = new Employee
 
 $pay = new Pay
 (
-    14.84,                   // $starting_wage;
-    40,                      // $hours;
-    22.47,                   // $overtime;
-    5,                       // $ot_hours;
-    20,                      // $bonus;
-    51,                      // $bonus_wks;
-    100 / 20,                // $tax;
-    100 / 5,                 // $nic;
-    100 / 2,                 // $student_loan;
+    15.44,                   // $starting_wage
+    40,                      // $hours
+    18.96,                   // $overtime
+    10,                      // $ot_hours
+    20,                      // $bonus
+    0,                       // $bonus_wks
+    20 / 100,                // $tax
+    5 / 100,                 // $nic
+    2 / 100,                 // $student_loan
 );
 
 
@@ -136,8 +156,8 @@ $pay = new Pay
     <p>Overtime:            £<?= $pay->setOvertime() ?></p>
     <p>Bonus:               £<?= $pay->setBonus() ?></p>
     <p>Tax:                 £<?= $pay->setTax() ?></p>
-    <p>National Insurance:  £</p>
-    <p>Student Loan:        £</p>
-    <p>Total Pay:           £</p>
+    <p>National Insurance:  £<?= $pay->setNatIns() ?></p>
+    <p>Student Loan:        £<?= $pay->setStudentLoan() ?></p>
+    <p>Total Pay:           £<?= $pay->setTotalWage() ?></p>
 </body>
 </html>
